@@ -145,14 +145,14 @@
   }
  
   function queryCapabilities() {
-    console.log('Έλεγχος ' + device.id + ' ικανότητες');
+    console.log('Έλεγχος ' + device.id + ' ικανότητες');//// TRANSLATED!
     var msg = new Uint8Array([
         START_SYSEX, CAPABILITY_QUERY, END_SYSEX]);
     device.send(msg.buffer);
   }
 
   function queryAnalogMapping() {
-    console.log('Έλεγχος ' + device.id + ' αναλογική χαρτογράφηση');
+    console.log('Έλεγχος ' + device.id + ' αναλογική χαρτογράφηση');//// TRANSLATED!
     var msg = new Uint8Array([
         START_SYSEX, ANALOG_MAPPING_QUERY, END_SYSEX]);
     device.send(msg.buffer);
@@ -275,14 +275,14 @@
       var valid = [];
       for (var i = 0; i < pinModes[ANALOG].length; i++)
         valid.push(i);
-      console.log('ΣΦΑΛΜΑ: τα έγκυρα αναλογικά pin είναι ' + valid.join(', '));
+      console.log('ΣΦΑΛΜΑ: τα έγκυρα αναλογικά pin είναι ' + valid.join(', '));//// TRANSLATED!
       return;
     }
   }
 
   function digitalRead(pin) {
     if (!hasCapability(pin, INPUT)) {
-      console.log('ΣΦΑΛΜΑ: τα έγκυρα pin εισόδου είναι ' + pinModes[INPUT].join(', '));
+      console.log('ΣΦΑΛΜΑ: τα έγκυρα pin εισόδου είναι ' + pinModes[INPUT].join(', '));//// TRANSLATED!
       return;
     }
     pinMode(pin, INPUT);
@@ -291,7 +291,7 @@
 
   function analogWrite(pin, val) {
     if (!hasCapability(pin, PWM)) {
-      console.log('ΣΦΑΛΜΑ: τα έγκυρα PWN pin είναι ' + pinModes[PWM].join(', '));
+      console.log('ΣΦΑΛΜΑ: τα έγκυρα PWN pin είναι ' + pinModes[PWM].join(', '));//// TRANSLATED!
       return;
     }
     if (val < 0) val = 0;
@@ -307,7 +307,7 @@
 
   function digitalWrite(pin, val) {
     if (!hasCapability(pin, OUTPUT)) {
-      console.log('ΣΦΑΛΜΑ: τα έγκυρα pin εξόδου είναι ' + pinModes[OUTPUT].join(', '));
+      console.log('ΣΦΑΛΜΑ: τα έγκυρα pin εξόδου είναι ' + pinModes[OUTPUT].join(', '));//// TRANSLATED!
       return;
     }
     var portNum = (pin >> 3) & 0x0F;
@@ -325,7 +325,7 @@
 
   function rotateServo(pin, deg) {
     if (!hasCapability(pin, SERVO)) {
-      console.log('ΣΦΑΛΜΑ: τα έγκυρα pin για servo είναι ' + pinModes[SERVO].join(', '));
+      console.log('ΣΦΑΛΜΑ: τα έγκυρα pin για servo είναι ' + pinModes[SERVO].join(', '));//// TRANSLATED!
       return;
     }
     pinMode(pin, SERVO);
@@ -346,9 +346,9 @@
   };
 
   ext.digitalWrite = function(pin, val) {
-    if (val == 'on')
+    if (val == 'ενεργοποιημένο')//// TRANSLATED!
       digitalWrite(pin, HIGH);
-    else if (val == 'off')
+    else if (val == 'απενεργοποιημένο')//// TRANSLATED!
       digitalWrite(pin, LOW);
   };
 
@@ -375,9 +375,9 @@
 
   ext.whenDigitalRead = function(pin, val) {
     if (hasCapability(pin, INPUT)) {
-      if (val == 'on')
+      if (val == 'ενεργοποιημένο')//// TRANSLATED!
         return digitalRead(pin);
-      else if (val == 'off')
+      else if (val == 'απενεργοποιημένο')//// TRANSLATED!
         return digitalRead(pin) == false;
     }
   };
@@ -425,10 +425,10 @@
   ext.digitalLED = function(led, val) {
     var hw = hwList.search(led);
     if (!hw) return;
-    if (val == 'on') {
+    if (val == 'ενεργοποιημένο') {//// TRANSLATED!
       digitalWrite(hw.pin, HIGH);
       hw.val = 255;
-    } else if (val == 'off') {
+    } else if (val == 'απενεργοποιημένο') {//// TRANSLATED!
       digitalWrite(hw.pin, LOW);
       hw.val = 0;
     }
@@ -443,9 +443,9 @@
   ext.whenButton = function(btn, state) {
     var hw = hwList.search(btn);
     if (!hw) return;
-    if (state === 'πατημένο')
+    if (state === 'πατημένο')//// TRANSLATED!
       return digitalRead(hw.pin);
-    else if (state === 'ελεύθερο')
+    else if (state === 'ελεύθερο')//// TRANSLATED!
       return !digitalRead(hw.pin);
   };
 
@@ -475,13 +475,13 @@
  
   ext._getStatus = function() {
     if (!connected)
-      return { status:1, msg:'Αποσυνδέθηκε' };
+      return { status:1, msg:'Αποσυνδέθηκε' };//// TRANSLATED!
     else
-      return { status:2, msg:'Συνδέθηκε' };
+      return { status:2, msg:'Συνδέθηκε' };//// TRANSLATED!
   };
 
   ext._deviceRemoved = function(dev) {
-    console.log('Device removed');
+    console.log('Η συσκευή αφαιρέθηκε');//// TRANSLATED!
     // Not currently implemented with serial devices
   };
 
@@ -499,7 +499,7 @@
     if (!device) return;
 
     device.open({ stopBits: 0, bitRate: 57600, ctsFlowControl: 0 });
-    console.log('Προσπάθεια σύνδεσης με ' + device.id);
+    console.log('Προσπάθεια σύνδεσης με ' + device.id);//// TRANSLATED!
     device.set_receive_handler(function(data) {
       var inputData = new Uint8Array(data);
       processInput(inputData);
@@ -526,33 +526,33 @@
     device = null;
   };
 
-  var descriptor = {
+  var descriptor = {//// TRANSLATED!
     blocks: [
-      ['h', 'όταν η συσκευή είναι συνδεδεμένη', 'whenConnected'],
-      [' ', 'σύνδεσε %m.hwOut στο pin %n', 'connectHW', 'led A', 3],
-      [' ', 'σύνδεσε %m.hwIn στο αναλογικό %n', 'connectHW', 'ποντεσιόμετρο', 0],
+      ['h', 'Όταν η συσκευή είναι συνδεδεμένη', 'whenConnected'],
+      [' ', 'σύνδεσε το %m.hwOut στο pin %n', 'connectHW', 'led A', 3],
+      [' ', 'σύνδεσε το %m.hwIn στο αναλογικό %n', 'connectHW', 'ποντεσιόμετρο', 0],
       ['-'],
-      [' ', 'άλλαξε το %m.leds %m.outputs σε', 'digitalLED', 'led A', 'on'],
-      [' ', 'θέσε στο %m.leds την φωτεινότητα ίση με %n%', 'setLED', 'led A', 100],
+      [' ', 'άλλαξε το %m.leds %m.outputs σε', 'digitalLED', 'led A', 'ενεργοποιημένο'],
+      [' ', 'όρισε στο %m.leds την φωτεινότητα ίση με %n%', 'setLED', 'led A', 100],
       [' ', 'άλλαξε στο %m.leds την φωτεινότητα κατά %n%', 'changeLED', 'led A', 20],
       ['-'],
       [' ', 'στρίψε το %m.servos στις %n μοίρες', 'rotateServo', 'servo A', 180],
       [' ', 'στρίψε το %m.servos κατά %n μοίρες', 'changeServo', 'servo A', 20],
       ['-'],
-      ['h', 'όταν το %m.buttons είναι %m.btnStates', 'whenButton', 'κουμπί A', 'πατημένο'],
-      ['b', 'το %m.buttons πατήθηκε?', 'isButtonPressed', 'κουμπί A'],
+      ['h', 'Όταν το %m.buttons είναι %m.btnStates', 'whenButton', 'κουμπί A', 'πατημένο'],
+      ['b', 'το %m.buttons πατήθηκε', 'isButtonPressed', 'κουμπί A'],
       ['-'],
-      ['h', 'όταν το %m.hwIn %m.ops %n%', 'whenInput', 'ποντεσιόμετρο', '>', 50],
+      ['h', 'Όταν το %m.hwIn %m.ops %n%', 'whenInput', 'ποντεσιόμετρο', '>', 50],
       ['r', 'διάβασε %m.hwIn', 'readInput', 'ποντεσιόμετρο'],
       ['-'],
-      [' ', 'άλλαξε το pin %n %m.outputs', 'digitalWrite', 1, 'on'],
-      [' ', 'θέσε το pin %n σε %n%', 'analogWrite', 3, 100],
+      [' ', 'άλλαξε το pin %n %m.outputs', 'digitalWrite', 1, 'ενεργοποιημένο'],
+      [' ', 'όρισε το pin %n σε %n%', 'analogWrite', 3, 100],
       ['-'],
-      ['h', 'όταν το pin %n είναι %m.outputs', 'whenDigitalRead', 1, 'on'],
-      ['b', 'είναι το pin %n ενεργοποιημένο?', 'digitalRead', 1],
+      ['h', 'Όταν το pin %n είναι %m.outputs', 'whenDigitalRead', 1, 'ενεργοποιημένο'],
+      ['b', 'το pin %n είναι ενεργοποιημένο', 'digitalRead', 1],
       ['-'],
-      ['h', 'όταν το αναλογικό %n %m.ops %n%', 'whenAnalogRead', 1, '>', 50],
-      ['r', 'διάβσε το αναλογικό %n', 'analogRead', 0],
+      ['h', 'Όταν το αναλογικό %n %m.ops %n%', 'whenAnalogRead', 1, '>', 50],
+      ['r', 'διάβασε το αναλογικό %n', 'analogRead', 0],
       ['-'],
       ['r', 'χαρτογράφισε %n από %n %n έως %n %n', 'mapValues', 50, 0, 100, -240, 240]
     ],  
@@ -562,7 +562,7 @@
       hwIn: ['ποντεσιόμετρο', 'φωτοαισθητήρας', 'θερμοαισθητήρας'],
       hwOut: ['led A', 'led B', 'led C', 'led D', 'κουμπί A', 'κουμπί B', 'κουμπί C', 'κουμπί D', 'servo A', 'servo B', 'servo C', 'servo D'],
       leds: ['led A', 'led B', 'led C', 'led D'],
-      outputs: ['on', 'off'],
+      outputs: ['ενεργοποιημένο', 'απενεργοποιημένο'],
       ops: ['>', '=', '<'],
       modes: ['OUTPUT', 'INPUT', 'PULL_UP'],
       servos: ['servo A', 'servo B', 'servo C', 'servo D']
