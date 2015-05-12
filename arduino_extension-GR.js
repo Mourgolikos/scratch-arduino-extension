@@ -549,7 +549,7 @@
       [' ', 'θέσε το pin %n σε %n%', 'analogWrite', 3, 100],
       ['-'],
       ['h', 'όταν το pin %n είναι %m.outputs', 'whenDigitalRead', 1, 'on'],
-      ['b', 'είναι το pin %n on?', 'digitalRead', 1],
+      ['b', 'είναι το pin %n ενεργοποιημένο?', 'digitalRead', 1],
       ['-'],
       ['h', 'όταν το αναλογικό %n %m.ops %n%', 'whenAnalogRead', 1, '>', 50],
       ['r', 'διάβσε το αναλογικό %n', 'analogRead', 0],
