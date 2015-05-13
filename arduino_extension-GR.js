@@ -560,8 +560,8 @@
       buttons: ['κουμπί A', 'κουμπί B', 'κουμπί C', 'κουμπί D'],
       btnStates: ['πατημένο', 'ελεύθερο'],
       hwIn: ['ποντεσιόμετρο', 'φωτοαισθητήρας', 'θερμοαισθητήρας'],
-      hwOut: ['led A', 'led B', 'led C', 'led D', 'led E', 'led F', 'κουμπί A', 'κουμπί B', 'κουμπί C', 'κουμπί D', 'servo A', 'servo B', 'servo C', 'servo D'],//added "led E", "led F"
-      leds: ['led A', 'led B', 'led C', 'led D', 'led E', 'led F'],//added "led E", "led F"
+      hwOut: ['led A', 'led B', 'led C', 'led D', 'led E', 'led F', 'led G', 'κουμπί A', 'κουμπί B', 'κουμπί C', 'κουμπί D', 'servo A', 'servo B', 'servo C', 'servo D'],//added "led E", "led F", "led G"
+      leds: ['led A', 'led B', 'led C', 'led D', 'led E', 'led F', 'led G'],//added "led E", "led F", "led G"
       outputs: ['ενεργοποιημένο', 'απενεργοποιημένο'],
       ops: ['>', '=', '<'],
       modes: ['OUTPUT', 'INPUT', 'PULL_UP'],
