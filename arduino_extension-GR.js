@@ -564,7 +564,6 @@
       leds: ['led A', 'led B', 'led C', 'led D', 'led E', 'led F', 'led G'],//added "led E", "led F", "led G"
       outputs: ['ενεργοποιημένο', 'απενεργοποιημένο'],
       ops: ['>', '=', '<'],
-      modes: ['OUTPUT', 'INPUT', 'PULL_UP'],
       servos: ['servo A', 'servo B', 'servo C', 'servo D']
     },  
     url: 'https://github.com/Mourgolikos/scratch-arduino-extension'
