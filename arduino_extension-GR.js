@@ -35,7 +35,11 @@
     PWM = 0x03,
     SERVO = 0x04,
     SHIFT = 0x05,
-    I2C = 0x06;
+    I2C = 0x06,
+    ONEWIRE = 0x07,
+    STEPPER = 0x08,
+    ENCODER = 0x09,
+    IGNORE = 0x7F;
 
   var LOW = 0,
     HIGH = 1;
@@ -56,7 +60,7 @@
 
   var analogChannel = new Uint8Array(MAX_PINS);
   var pinModes = [];
-  for (var i = 0; i < 7; i++) pinModes[i] = [];
+  for (var i = 0; i < 11; i++) pinModes[i] = [];
 
   var majorVersion = 0,
     minorVersion = 0;
@@ -76,7 +80,7 @@
   var hwList = new HWList();
 
   function HWList() {
-    this.devices = []
+    this.devices = [];
 
     this.add = function(dev, pin) {
       var device = this.search(dev);
@@ -227,7 +231,7 @@
         }
       } else if (waitForData > 0 && inputData[i] < 0x80) {
         storedInputData[--waitForData] = inputData[i];
-        if (executeMultiByteCommand != 0 && waitForData == 0) {
+        if (executeMultiByteCommand !== 0 && waitForData === 0) {
           switch(executeMultiByteCommand) {
             case DIGITAL_MESSAGE:
               setDigitalInputs(multiByteChannel, (storedInputData[0] << 7) + storedInputData[1]);
@@ -295,7 +299,7 @@
       return;
     }
     if (val < 0) val = 0;
-    else if (val > 100) val = 100
+    else if (val > 100) val = 100;
     val = Math.round((val / 100) * 255);
     pinMode(pin, PWM);
     var msg = new Uint8Array([
@@ -378,7 +382,7 @@
       if (val == 'ενεργοποιημένο')//// TRANSLATED!
         return digitalRead(pin);
       else if (val == 'απενεργοποιημένο')//// TRANSLATED!
-        return digitalRead(pin) == false;
+        return digitalRead(pin) === false;
     }
   };
 
@@ -517,7 +521,7 @@
       device = null;
       tryNextDevice();
     }, 5000);
-  };
+  }
 
   ext._shutdown = function() {
     // TODO: Bring all pins down 
